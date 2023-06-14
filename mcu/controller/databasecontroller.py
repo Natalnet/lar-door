@@ -53,6 +53,25 @@ class DatabaseController:
         
         return (False, i)
     
+    def findname(self, tag):
+        
+        archive = open('ID.json').read()
+        
+        load_archive = ujson.loads(archive)
+        
+        amout = int(len(load_archive))
+        
+        findTag = tag
+        
+        for i in range(amount):
+            
+            if load_archive[i]['id'] == findTag:
+                name = load_archive[i]['name']
+                
+                return name
+            
+        return 'no-tag'
+    
     def addcard(self, tag, name):
         
         if self.findcard(tag)[0] == False:
@@ -113,3 +132,4 @@ class DatabaseController:
         amount = int(len(load_archive))
         
         return amount
+
