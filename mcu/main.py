@@ -60,7 +60,7 @@ def sub_cb(topic, msg):
     global topic_sub, topic_pub
     
     if topic == topic_sub and msg == b'open':
-        print('test')
+        print('foi')
 
 def ping():
     client.ping()
@@ -79,6 +79,7 @@ def ping_check():
         
         if not pingresp_rcv_flag:
             mqtt_con_flag = False
+            print('MQTT is dead')
         else:
             ping()
             
@@ -247,6 +248,7 @@ while True:
         else:
             
             if dc.findcard(cardTag)[0]:
-                grant(3000, 'test', cardTag)
+                grant(3000, dc.findname(cardTag), cardTag)
             else:
                 deny(cardTag)
+
