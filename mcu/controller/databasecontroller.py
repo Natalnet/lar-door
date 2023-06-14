@@ -59,7 +59,7 @@ class DatabaseController:
         
         load_archive = ujson.loads(archive)
         
-        amout = int(len(load_archive))
+        amount = int(len(load_archive))
         
         findTag = tag
         
