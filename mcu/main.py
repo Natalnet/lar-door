@@ -60,7 +60,27 @@ def sub_cb(topic, msg):
     global topic_sub, topic_pub
     
     if topic == topic_sub and msg == b'open':
-        print('foi')
+        
+        client.publish(topic_pub, 'COMMAND -> Received <open> command, opening the door')
+        
+        relay.value(0)
+        
+        time.sleep_ms(3000)
+        
+        relay.value(1)
+    
+    if topic == topic_sub:
+        
+        if not ';' in msg:
+            return
+        
+        decoded = msg.decode('utf-8')
+        
+        register = decoded.split(';')
+        
+        client.publish(topic_pub, f'REGISTER -> RFiD {register[1]} added to database by an administrator')
+        
+        dc.addcard(register[1], register[0])
 
 def ping():
     client.ping()
@@ -79,7 +99,6 @@ def ping_check():
         
         if not pingresp_rcv_flag:
             mqtt_con_flag = False
-            print('MQTT is dead')
         else:
             ping()
             
